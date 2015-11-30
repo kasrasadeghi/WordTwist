@@ -12,6 +12,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 
 public class WordTwistModelUtility 
@@ -23,10 +24,10 @@ public class WordTwistModelUtility
     // returns a list of all the words in WordTwist Words.txt
     public static ArrayList<String> readDictionary()
     {
-        Scanner dictionaryFileScanner;
+        Scanner sc;
         try
         {
-            dictionaryFileScanner = new Scanner( new File("WordTwist Words.txt") );
+            sc = new Scanner( new File("WordTwist Words.txt") );
         } 
         catch (FileNotFoundException ex)
         {
@@ -35,7 +36,12 @@ public class WordTwistModelUtility
         }
         
         // read words from the scanner object into an array list and return the array list
-        return null;
+        
+        ArrayList<String> words = new ArrayList<>();
+        while (sc.hasNext())
+            words.add(sc.next().toUpperCase());
+        
+        return words;
     }
     
     // filters out the six letter words from the input list
@@ -43,7 +49,13 @@ public class WordTwistModelUtility
     {
         // create and return an array list of the six letter words in the dictionary
         // HINT: this is a filter function
-        return null;
+        
+        return dictionary.stream().filter(x -> x.length() == 6).collect(Collectors.toCollection(ArrayList::new));
+//        ArrayList<String> output = new ArrayList<>();
+//        for (String word : dictionary)
+//            if (word.length() == 6)
+//                output.add(word);
+//        return output;
     }
     
     // chooses a random word from the list sixLetterWords
@@ -59,19 +71,23 @@ public class WordTwistModelUtility
     {
         // use the getPermutations function to get a list of all the possible letter
         // combinations that can be formed from str
-
+        ArrayList<String> allPermutes = getPermutations(str);
+        allPermutes.removeIf(x -> !dictionary.contains(x));
         // then, use the dictionary to see which of those words are actually
         // legal english words.  return a list of these words
         // HINT: another filter function
         
-        return null;
+        return allPermutes;
     }
     
-    // getPermutations
-    // consumes a string and returns a list of all the permutations of the letters of str.
-    // for example, if str is "CAT", the result of getPermutations will be a list
-    // containing the Strings "CAT", "CTA", "ACT", "ATC", "TCA", "TAC",
-    // "CA", "CT", "AC", "AT", "TC", "TA", "C", "A", and "T" (in some order)
+    /** getPermutations
+    * consumes a string and returns a list of all the permutations of the letters of str.
+    * for example, if str is "CAT", the result of getPermutations will be a list
+    * containing the Strings "CAT", "CTA", "ACT", "ATC", "TCA", "TAC",
+    * "CA", "CT", "AC", "AT", "TC", "TA", "C", "A", and "T" (in some order)
+     * @param str
+     * @return 
+    */
     public static ArrayList<String> getPermutations( String str )
     {
         if ( str.length() == 0 )
