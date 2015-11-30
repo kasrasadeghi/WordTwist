@@ -8,6 +8,7 @@ package wordtwist;
 import apcscvm.CVMProgram;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -277,8 +278,7 @@ public class WordTwist
                 
         // and uncomment this line:
          //finalIntegration();
-                
+           
         
     }
-    
 }

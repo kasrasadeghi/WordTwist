@@ -51,8 +51,11 @@ interface WordTwistModel
     // Regardless, the current word is reset so that all tiles are unused
     void submit();
     
+    void ksubmit(String s);
+    boolean kcontains(String s);
+    
     // resets all letters in the current word to the unused letters
-     void reset();
+    void reset();
     
     // scrambles all letters in the unused letters
     void scrambleUnusedLetters();

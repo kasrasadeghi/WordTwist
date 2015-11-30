@@ -18,11 +18,11 @@ public class WordTwistTextView
         for ( int i = 0; i < model.getWordBankSize(); i++ )
         {
             String w = model.getWordBankWord( i );
-            if ( model.isWordBankWordFound(i) )
+            if ( model.isWordBankWordFound(i))
             {
                 for ( int j = 0; j < w.length(); j++ )
                 {
-                    System.out.print( w.charAt(j) + " " );
+                    System.out.print( w.charAt(j) + "*" );
                 }
                 System.out.println();
             }
@@ -30,7 +30,7 @@ public class WordTwistTextView
             {
                 for ( int j = 0; j < w.length(); j++ )
                 {
-                    System.out.print( "_ " );
+                    System.out.print( w.charAt(j) + " " );
                 }
                 System.out.println();
             }

@@ -99,6 +99,16 @@ public class WordTwistDummyModel implements WordTwistModel
     {
         System.out.println( "Submitting word" );
     }
+    
+    @Override
+    public void ksubmit(String s) {
+        
+    }
+
+    @Override
+    public boolean kcontains(String s) {
+        return false;
+    }
 
     @Override
     public void reset()
@@ -123,5 +133,7 @@ public class WordTwistDummyModel implements WordTwistModel
     {
         System.out.println( "Starting new round" );
     }
+
+    
     
 }

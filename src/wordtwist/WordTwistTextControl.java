@@ -20,18 +20,24 @@ public class WordTwistTextControl
     {
         String s = in.nextLine().trim();
         Scanner ss = new Scanner( s );
-        if( ss.hasNextInt() )
+        if( ss.hasNextInt())
         {
             int i = ss.nextInt();
-            
-            if ( i < 0 || s.charAt(0) == '-' )
-            {
-                model.unuseLetter( -i );
+            if (i < 6 && i > -6){
+                if ( i < 0 || s.charAt(0) == '-' )
+                {
+                    model.unuseLetter( -i );
+                }
+                else if ( i >= 0 )
+                {
+                    model.useLetter( i );
+                }
             }
-            else if ( i >= 0 )
-            {
-                model.useLetter( i );
-            }
+            else System.out.println("Not an index.");
+        }
+        else if (model.kcontains(s.toUpperCase()))
+        {
+            model.ksubmit(s.toUpperCase());
         }
         else
         {
