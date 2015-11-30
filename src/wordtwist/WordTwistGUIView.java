@@ -15,11 +15,14 @@ import java.awt.event.MouseEvent;
 public class WordTwistGUIView extends DefaultControl<WordTwistModel> implements View<WordTwistModel>
 {
     // add member variables for two fonts here
-    
+    private Font bigFont;
+    private Font smallFont;
     // constructor:
     // initialize the font objects
     public WordTwistGUIView()
     {
+        bigFont = new Font( "SansSerif", Font.PLAIN, 12);
+        smallFont = new Font ("SansSerif", Font.PLAIN, 20);
     }
     
     // draws a letter tile with its ULC at the given coordinates
