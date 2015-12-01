@@ -108,14 +108,11 @@ public class WordTwistGUIView extends DefaultControl<WordTwistModel> implements 
             String word = model.getWordBankWord(i);
             for (int j = 0; j < word.length(); ++j)
                 drawSmallLetterTile(g, 10 + 25*j + (i/12) * 175, 10 + 25*(i%12),
-                        model.roundOver()?
                         ((model.isWordBankWordFound(i))
                                 ? word.charAt(j)
-                                : word.toLowerCase().charAt(j))
-                        :((model.isWordBankWordFound(i))
-                                ? word.charAt(j)
-                                : ' ')
-                        , BG);
+                                : (model.roundOver())?word.charAt(j):' '),
+                        model.isWordBankWordFound(i)? BG
+                        : model.roundOver()?Color.RED:BG);
         }
         drawStringBox(g, cx + 200, cy + 500, model.getWordBankWord(0), 125, 55, bigFont, BG);
         
