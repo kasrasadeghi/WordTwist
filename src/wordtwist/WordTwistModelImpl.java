@@ -41,8 +41,6 @@ public class WordTwistModelImpl implements WordTwistModel {
         // save the base word
         // initilize the current word
         // set time remaining to 2 minutes
-        
-//        time = 10000;
     }
 
     @Override
