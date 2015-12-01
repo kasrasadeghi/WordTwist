@@ -125,7 +125,7 @@ public class WordTwistDummyModel implements WordTwistModel
     @Override
     public void reduceTime(int dt)
     {
-        System.out.println( "Reducing time" );
+//        System.out.println( "Reducing time" );
     }
 
     @Override

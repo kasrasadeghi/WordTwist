@@ -11,7 +11,6 @@ public class WordTwistModelImpl implements WordTwistModel {
     // the unused letters, the base word (ie the 6 letter word), the time remaining
     // and the score
 
-    private ArrayList<String> wordsS;
     private ArrayList<Character> unusedLetters = new ArrayList<>();
     private ArrayList<Character> usedLetters = new ArrayList<>();
     private int time;
@@ -29,8 +28,7 @@ public class WordTwistModelImpl implements WordTwistModel {
     private void initializeState(String word) {
         // get the hidden words
         // create the word bank
-        wordsS = getHiddenWords(word);
-        words = wordsS.stream().map(x -> new Word(x)).collect(Collectors.toCollection(ArrayList::new));
+        words = getHiddenWords(word).stream().map(x -> new Word(x)).collect(Collectors.toCollection(ArrayList::new));
         
         
         // initialize the unused characters to be the characters in the word
@@ -39,16 +37,17 @@ public class WordTwistModelImpl implements WordTwistModel {
             unusedLetters.add(word.charAt(i));
         }
         scrambleUnusedLetters();
-
+//        this.time = 120000;
         // save the base word
         // initilize the current word
         // set time remaining to 2 minutes
-        this.time = 120000;
+        
+        time = 500000;
     }
 
     @Override
     public Character getUnusedLetter(int index) {
-        return (index < unusedLetters.size())? unusedLetters.get(index) : ' ';
+        return (index < unusedLetters.size() && index > -1)? unusedLetters.get(index) : ' ';
     }
 
     @Override
@@ -65,7 +64,7 @@ public class WordTwistModelImpl implements WordTwistModel {
 
     @Override
     public String getWordBankWord(int index) {
-        return wordsS.get(index);
+        return words.get(index).value;
     }
 
     @Override
@@ -86,12 +85,12 @@ public class WordTwistModelImpl implements WordTwistModel {
     @Override
     public void submit() {
         Word curWord = new Word(getCurWord());
-
+        
+        if (curWord.length() < 3 || words.indexOf(curWord) == -1) {reset(); return;}
+        
         if (words.get(words.indexOf(curWord)).found == false) {
-            
             if (words.contains(curWord)) {
                 words.get(words.indexOf(curWord)).found = true;
-            
                 switch (usedLetters.size()) {
                     case 3: score +=  50;break;
                     case 4: score +=  75;break;
@@ -100,11 +99,14 @@ public class WordTwistModelImpl implements WordTwistModel {
                 }
             }
         }
+//        System.out.println("s4");
+        if (words.stream().allMatch(word -> word.found))
+            score += 1000;
         reset();
     }
     @Override
     public boolean kcontains(String curText) {
-        return wordsS.contains(curText);
+        return getHiddenWords(words.get(0).value).contains(curText);
     }
     @Override
     public void ksubmit(String curText) {
@@ -128,8 +130,8 @@ public class WordTwistModelImpl implements WordTwistModel {
 
     @Override
     public void reset() {
-        usedLetters.forEach(x -> unusedLetters.add(x));
-        usedLetters.clear();
+//        System.out.println("reset");
+        while (usedLetters.size() > 0) unuseLetter(0);
     }
 
     @Override
@@ -143,12 +145,13 @@ public class WordTwistModelImpl implements WordTwistModel {
 
     @Override
     public void reduceTime(int dt) {
-        time -= dt;
+        if (!roundOver())
+            time -= dt;
     }
 
     @Override
     public int getTime() {
-        return time / 1000;
+        return time;
     }
 
     @Override
@@ -158,27 +161,29 @@ public class WordTwistModelImpl implements WordTwistModel {
 
     @Override
     public boolean roundOver() {
-        if (!words.stream().noneMatch((word) -> (!word.found))) {
-            return false;
-        }
+        if (words.stream().allMatch(word -> word.found))
+            return true;
+        
         return time <= 0;
     }
 
     @Override
     public boolean gameOver() {
-        boolean sixfound = words.stream()
+        boolean noSixfound = words.stream()
                 .filter(x -> x.value.length() == 6)
                 .filter(x -> x.found)
-                .count() > 0;
+                .count() == 0;
 
-        return roundOver() && sixfound;
+        return roundOver() && noSixfound;
     }
 
     @Override
     public void startNewRound() {
-        if (gameOver()) {
-            score = 0;
-        }
+        
+        reset();
+        unusedLetters.clear();
+        if (gameOver()) score = 0;
+        
         initializeState(WordTwistModelUtility.chooseRandomSixLetterWord());
     }
 }

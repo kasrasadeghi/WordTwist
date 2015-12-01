@@ -251,33 +251,16 @@ public class WordTwist
     {
         // when both parts are done, erase these lines...
         
-        Scanner in = new Scanner( System.in );
-        System.out.println( "Test Model (U)tility" );
-        System.out.println( "Test (M)odel" );
-        System.out.println( "Test (V)iew/Control" );
-        System.out.println( "Test View (I)nfo" );
+//        testModelUtility();
+
+//        testModel();
+
+//        testControlView();
+
+//        testViewInfo();
         
-        String cmd = in.next().toUpperCase();
-        
-        if ( cmd.charAt(0) == 'U' )
-        {
-            testModelUtility();
-        }
-        else if ( cmd.charAt(0) == 'M' )
-        {
-            testModel();
-        }
-        else if ( cmd.charAt(0) == 'V' )
-        {
-            testControlView();
-        }
-        else if ( cmd.charAt(0) == 'I' )
-        {
-            testViewInfo();
-        }
-                
         // and uncomment this line:
-         //finalIntegration();
+        finalIntegration();
            
         
     }

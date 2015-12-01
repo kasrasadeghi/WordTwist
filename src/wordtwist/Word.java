@@ -23,17 +23,13 @@ public class Word {
     public Word(String value) {
         this(value, false);
     }
-//    
-//    public boolean equals(Object o) {
-//        if (!(o instanceof Point))
-//            return false;
-//        Point p = (Point)o;
-//        return (p.x == this.x && p.y == this.y);
-//    }
+    
+    public int length() {
+        return value.length();
+    }
     
     @Override
     public boolean equals(Object word) {
-        //TODO
         if (!(word instanceof Word)){
             return false;
         }
@@ -41,11 +37,11 @@ public class Word {
         return (tempword.value.equals(this.value)) && (tempword.found == this.found);
     }
 
+    //apparently you multiply the hashes by prime numbers because it makes good code or something.
+    //hashcodes are things that make all objects into a 32-bit signed integer.
+    //basically let netbeans autogenerate this because we're not good enough at code to do this on the fly.
     @Override
     public int hashCode() {
-        //apparently you multiply the hashes by prime numbers because it makes good code or something.
-        //hashcodes are things that make all objects into a 32-bit signed integer.
-        //basically let netbeans autogenerate this because we're not good enough at code to do this on the fly.
         int hash = 5;
         hash = 97 * hash + Objects.hashCode(this.value);
         hash = 97 * hash + (this.found ? 1 : 0);
