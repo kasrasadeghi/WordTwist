@@ -37,12 +37,12 @@ public class WordTwistModelImpl implements WordTwistModel {
             unusedLetters.add(word.charAt(i));
         }
         scrambleUnusedLetters();
-//        this.time = 120000;
+        this.time = 120000;
         // save the base word
         // initilize the current word
         // set time remaining to 2 minutes
         
-        time = 500000;
+//        time = 500000;
     }
 
     @Override
@@ -99,15 +99,16 @@ public class WordTwistModelImpl implements WordTwistModel {
                 }
             }
         }
-//        System.out.println("s4");
         if (words.stream().allMatch(word -> word.found))
             score += 1000;
         reset();
     }
+    
     @Override
     public boolean kcontains(String curText) {
         return getHiddenWords(words.get(0).value).contains(curText);
     }
+    
     @Override
     public void ksubmit(String curText) {
         Word curWord = new Word(curText);
