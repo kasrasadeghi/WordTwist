@@ -37,12 +37,12 @@ public class WordTwistModelImpl implements WordTwistModel {
             unusedLetters.add(word.charAt(i));
         }
 //        scrambleUnusedLetters();
-//        this.time = 120000;
+        this.time = 120000;
         // save the base word
         // initilize the current word
         // set time remaining to 2 minutes
         
-        time = 5000;
+//        time = 10000;
     }
 
     @Override
@@ -74,12 +74,18 @@ public class WordTwistModelImpl implements WordTwistModel {
 
     @Override
     public void useLetter(int index) {
-        usedLetters.add(unusedLetters.remove(index));
+        Character temp = unusedLetters.get(index);
+        usedLetters.add(temp);
+        unusedLetters.set(index, ' ');
     }
 
     @Override
     public void unuseLetter(int index) {
-        unusedLetters.add(usedLetters.remove(index));
+        for (int i = 0; i < 6; ++i)
+            if (unusedLetters.get(i) == ' '){
+                unusedLetters.set(i, usedLetters.remove(index));
+                return;
+            }
     }
 
     @Override
