@@ -36,13 +36,13 @@ public class WordTwistModelImpl implements WordTwistModel {
         {
             unusedLetters.add(word.charAt(i));
         }
-        scrambleUnusedLetters();
-        this.time = 120000;
+//        scrambleUnusedLetters();
+//        this.time = 120000;
         // save the base word
         // initilize the current word
         // set time remaining to 2 minutes
         
-//        time = 500000;
+        time = 5000;
     }
 
     @Override
